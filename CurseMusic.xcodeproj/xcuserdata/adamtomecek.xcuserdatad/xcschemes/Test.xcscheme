@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C220A9BF1CE35D1F00510EEB"
-               BuildableName = "Test"
-               BlueprintName = "Test"
-               ReferencedContainer = "container:Test.xcodeproj">
+               BuildableName = "CurseMusic"
+               BlueprintName = "CurseMusic"
+               ReferencedContainer = "container:CurseMusic.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C220A9BF1CE35D1F00510EEB"
-            BuildableName = "Test"
-            BlueprintName = "Test"
-            ReferencedContainer = "container:Test.xcodeproj">
+            BuildableName = "CurseMusic"
+            BlueprintName = "CurseMusic"
+            ReferencedContainer = "container:CurseMusic.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C220A9BF1CE35D1F00510EEB"
-            BuildableName = "Test"
-            BlueprintName = "Test"
-            ReferencedContainer = "container:Test.xcodeproj">
+            BuildableName = "CurseMusic"
+            BlueprintName = "CurseMusic"
+            ReferencedContainer = "container:CurseMusic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C220A9BF1CE35D1F00510EEB"
-            BuildableName = "Test"
-            BlueprintName = "Test"
-            ReferencedContainer = "container:Test.xcodeproj">
+            BuildableName = "CurseMusic"
+            BlueprintName = "CurseMusic"
+            ReferencedContainer = "container:CurseMusic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

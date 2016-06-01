@@ -7,24 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20CFF141CFF737B006740A0 /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20CFF131CFF737B006740A0 /* FuzzySearch.swift */; };
 		C220A9C41CE35D1F00510EEB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C220A9C31CE35D1F00510EEB /* main.swift */; };
+		C23DB06D1CE5DF0200322A45 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C23DB06C1CE5DF0200322A45 /* libncurses.dylib */; };
+		C26584FD1CF8B23A00261338 /* PlaylistWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */; };
+		C26584FF1CF8B37200261338 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26584FE1CF8B37200261338 /* Utils.swift */; };
+		C26585011CF8B6C200261338 /* SearchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26585001CF8B6C200261338 /* SearchWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C220A9BE1CE35D1F00510EEB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 10;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C220A9C01CE35D1F00510EEB /* Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Test; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20CFF131CFF737B006740A0 /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
+		C220A9C01CE35D1F00510EEB /* CurseMusic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CurseMusic; sourceTree = BUILT_PRODUCTS_DIR; };
 		C220A9C31CE35D1F00510EEB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C23DB06C1CE5DF0200322A45 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = /usr/local/Cellar/ncurses/6.0_1/lib/libncurses.dylib; sourceTree = "<absolute>"; };
+		C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistWindow.swift; sourceTree = "<group>"; };
+		C26584FE1CF8B37200261338 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C26585001CF8B6C200261338 /* SearchWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C23DB06D1CE5DF0200322A45 /* libncurses.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +52,7 @@
 		C220A9B71CE35D1F00510EEB = {
 			isa = PBXGroup;
 			children = (
+				C2D629191CE8E12100E75609 /* lib */,
 				C220A9C21CE35D1F00510EEB /* Test */,
 				C220A9C11CE35D1F00510EEB /* Products */,
 			);
@@ -49,7 +61,7 @@
 		C220A9C11CE35D1F00510EEB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C220A9C01CE35D1F00510EEB /* Test */,
+				C220A9C01CE35D1F00510EEB /* CurseMusic */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,16 +70,28 @@
 			isa = PBXGroup;
 			children = (
 				C220A9C31CE35D1F00510EEB /* main.swift */,
+				C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */,
+				C26584FE1CF8B37200261338 /* Utils.swift */,
+				C26585001CF8B6C200261338 /* SearchWindow.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		C2D629191CE8E12100E75609 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				C20CFF131CFF737B006740A0 /* FuzzySearch.swift */,
+				C23DB06C1CE5DF0200322A45 /* libncurses.dylib */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C220A9BF1CE35D1F00510EEB /* Test */ = {
+		C220A9BF1CE35D1F00510EEB /* CurseMusic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C220A9C71CE35D1F00510EEB /* Build configuration list for PBXNativeTarget "Test" */;
+			buildConfigurationList = C220A9C71CE35D1F00510EEB /* Build configuration list for PBXNativeTarget "CurseMusic" */;
 			buildPhases = (
 				C220A9BC1CE35D1F00510EEB /* Sources */,
 				C220A9BD1CE35D1F00510EEB /* Frameworks */,
@@ -77,9 +101,9 @@
 			);
 			dependencies = (
 			);
-			name = Test;
+			name = CurseMusic;
 			productName = Test;
-			productReference = C220A9C01CE35D1F00510EEB /* Test */;
+			productReference = C220A9C01CE35D1F00510EEB /* CurseMusic */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -97,7 +121,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C220A9BB1CE35D1F00510EEB /* Build configuration list for PBXProject "Test" */;
+			buildConfigurationList = C220A9BB1CE35D1F00510EEB /* Build configuration list for PBXProject "CurseMusic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -109,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C220A9BF1CE35D1F00510EEB /* Test */,
+				C220A9BF1CE35D1F00510EEB /* CurseMusic */,
 			);
 		};
 /* End PBXProject section */
@@ -120,6 +144,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C220A9C41CE35D1F00510EEB /* main.swift in Sources */,
+				C20CFF141CFF737B006740A0 /* FuzzySearch.swift in Sources */,
+				C26584FD1CF8B23A00261338 /* PlaylistWindow.swift in Sources */,
+				C26584FF1CF8B37200261338 /* Utils.swift in Sources */,
+				C26585011CF8B6C200261338 /* SearchWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,21 +239,35 @@
 		C220A9C81CE35D1F00510EEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/ncurses/6.0_1/lib,
+				);
+				PRODUCT_NAME = CurseMusic;
+				SWIFT_INCLUDE_PATHS = "";
 			};
 			name = Debug;
 		};
 		C220A9C91CE35D1F00510EEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/ncurses/6.0_1/lib,
+				);
+				PRODUCT_NAME = CurseMusic;
+				SWIFT_INCLUDE_PATHS = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C220A9BB1CE35D1F00510EEB /* Build configuration list for PBXProject "Test" */ = {
+		C220A9BB1CE35D1F00510EEB /* Build configuration list for PBXProject "CurseMusic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C220A9C51CE35D1F00510EEB /* Debug */,
@@ -234,13 +276,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C220A9C71CE35D1F00510EEB /* Build configuration list for PBXNativeTarget "Test" */ = {
+		C220A9C71CE35D1F00510EEB /* Build configuration list for PBXNativeTarget "CurseMusic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C220A9C81CE35D1F00510EEB /* Debug */,
 				C220A9C91CE35D1F00510EEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
