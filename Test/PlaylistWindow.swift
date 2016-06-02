@@ -9,7 +9,13 @@
 import Foundation
 
 func drawPlaylistLine(song: Song, i: Int){
-  let pathSize: Int = song.path.characters.count
+  // song name consists of title, album and artist
+  let songTitle = song.fullName
+  // formatted duration
+  let songDuration = timeToString(song.duration) // delka songy
+  
+  let pathSize: Int = songTitle.characters.count
+  let durationSize: Int = songDuration.characters.count
   wclrtoeol(playlistWindow)
   if (activeSong == selectedSong) && (activeSong == i) {
     wattrset(playlistWindow, COLOR_PAIR(3))
@@ -20,8 +26,8 @@ func drawPlaylistLine(song: Song, i: Int){
   }
  
   // orezat nazev nebo doplnit mezerami na celou sirku okna
-  var line = song.path
-  var diff = maxColumns - pathSize - 1
+  var line = songTitle
+  var diff = maxColumns - pathSize - durationSize - 1
   if diff <= 0 {
     diff *= -1
     let index1 = line.startIndex.advancedBy(diff)
@@ -31,6 +37,8 @@ func drawPlaylistLine(song: Song, i: Int){
       line += " "
     }
   }
+  
+  line += songDuration
   
   waddstr(playlistWindow, line)
   

@@ -15,6 +15,8 @@ var songs: [Song] = readFolder("/Users/adamtomecek/Music/MP3/Architects")
 var limitedSongs: [Song] = []
 limitedSongs = songs
 
+// sleep(5)
+
 initscr()                   // Init window. Must be first
 cbreak()
 noecho()                    // Don't echo user input

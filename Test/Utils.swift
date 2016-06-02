@@ -10,8 +10,12 @@ import Foundation
 import AVFoundation
 
 struct Song {
-  var name: String
   var path: String
+  var artist: String
+  var album: String
+  var title: String
+  var duration: Float64
+  var fullName: String
 }
 
 func readFolder(path: String) -> [Song]{
@@ -22,8 +26,39 @@ func readFolder(path: String) -> [Song]{
   
   while let item = enumerator?.nextObject() as? String {
     let ext = (item as NSString).pathExtension
-    if ext == "mp3" {
-      songs.append(Song(name: "test", path: path + "/" + item))
+    if ext == "mp3" { // load only MP3 files
+      let songPath = path + "/" + item
+      
+      var artist: String = ""
+      var album: String = ""
+      var title: String = ""
+      
+      let fileUrl = NSURL.fileURLWithPath(songPath)
+      let asset = AVURLAsset(URL: fileUrl)
+      let duration = CMTimeGetSeconds(asset.duration)
+     
+      // ID3 tags
+      for format in asset.availableMetadataFormats {
+        for tag in asset.metadataForFormat(format) {
+          if (tag.commonKey == "title"){
+            title = tag.stringValue!
+          } else if (tag.commonKey == "artist"){
+            artist = tag.stringValue!
+          } else if (tag.commonKey == "albumName"){
+            album = tag.stringValue!
+          }
+        }
+      }
+      songs.append(
+        Song(
+          path: songPath,
+          artist: artist,
+          album: album,
+          title: title,
+          duration: duration,
+          fullName: "\(artist) - \(album) - \(title)"
+        )
+      )
     }
   }
   
@@ -34,7 +69,7 @@ func searchSongs() -> [Song] {
   var searchSongs: [Song] = []
   
   for song in songs {
-    if FuzzySearch.search(originalString: song.path, stringToSearch: consoleContent){
+    if FuzzySearch.search(originalString: song.fullName, stringToSearch: consoleContent){
       searchSongs.append(song)
     }
   }
@@ -89,3 +124,13 @@ func readInput(char: Int32){
     default: true
   }
 }
+
+func timeToString (audioLength: Float64) -> String{
+  let minute_ = abs(Int((audioLength/60) % 60))
+  let second_ = abs(Int(audioLength % 60))
+  
+  let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
+  let second = second_ > 9 ? "\(second_)" : "0\(second_)"
+  return "\(minute):\(second)"
+}
+
