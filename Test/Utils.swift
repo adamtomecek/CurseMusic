@@ -67,6 +67,11 @@ func readFolder(path: String) -> [Song]{
 
 func searchSongs() -> [Song] {
   var searchSongs: [Song] = []
+ 
+  /* seach string is empty, return all songs */
+  if consoleContent == "" {
+    return songs
+  }
   
   for song in songs {
     if FuzzySearch.search(originalString: song.fullName, stringToSearch: consoleContent){
@@ -101,6 +106,49 @@ func drawBorders(window: COpaquePointer, y: Int32, x: Int32){
   mvwvline(window, 1, x - 2, UInt32("|"), y - 2)
 }
 
+func trimTextToFitLine(line: String, maxLength: Int) -> String{
+  var diff = maxLength - line.characters.count - 1
+  if diff <= 0 {
+    diff *= -1
+    let index1 = line.startIndex.advancedBy(diff)
+    return line.substringFromIndex(index1)
+  }else{
+    var out = line
+    for _ in 0...diff{
+      out += " "
+    }
+    return out
+  }
+}
+
+func centerText(line: String, maxLength: Int) -> String{
+  var diff = maxLength - line.characters.count - 1
+  if diff <= 0 { // line too long, trim instead of centering
+    diff *= -1
+    let index1 = line.startIndex.advancedBy(diff)
+    return line.substringFromIndex(index1)
+  }
+  
+  let start = (maxLength - line.characters.count - 1) / 2
+  var out: String = ""
+  for _ in 0...start{
+    out += " "
+  }
+  if line.characters.count > 0 { out += line }
+  for _ in 0...start{
+    out += " "
+  }
+  return out
+}
+
+func centerText(text:String, numlines:Int32, numcols:Int32) {
+  let cy:Int32 = numlines/2
+  let cx:Int32 = (numcols - Int32(text.characters.count))/2
+  move(cy,cx)
+  addstr(text)
+  refresh()
+}
+
 func readInput(char: Int32){
   switch char {
     case Int32(UnicodeScalar("q").value):
@@ -112,15 +160,32 @@ func readInput(char: Int32){
     case Int32(UnicodeScalar("k").value):
       selectedSong -= 1
       playlistChanged = true
+    case Int32(UnicodeScalar("p").value):
+      if player?.playing == true {
+        player?.pause()
+      }else {
+        player?.play()
+      }
     case Int32(UnicodeScalar("/").value):
+      consoleContent = ""
       readConsole = true
+    case Int32(12): // ^l -> clear search
+      consoleContent = ""
+      limitedSongs = songs
+      songsCount = songs.count
+      playlistChanged = true
+      consoleChanged = true
     case Int32(UnicodeScalar("r").value): // random
       // activeSong = random(songsCount)
       playlistChanged = true
     case 13: // enter
-      activeSong = selectedSong
-      playSound(limitedSongs[activeSong].path)
+      if limitedSongs.count > 0 {
+        activeSong = selectedSong
+        playingSong = limitedSongs[activeSong]
+        playSound(limitedSongs[activeSong].path)
+      }
       playlistChanged = true
+      songChanged = true
     default: true
   }
 }

@@ -12,10 +12,9 @@ func drawPlaylistLine(song: Song, i: Int){
   // song name consists of title, album and artist
   let songTitle = song.fullName
   // formatted duration
-  let songDuration = timeToString(song.duration) // delka songy
-  
-  let pathSize: Int = songTitle.characters.count
+  let songDuration = timeToString(song.duration) // song duration
   let durationSize: Int = songDuration.characters.count
+  
   wclrtoeol(playlistWindow)
   if (activeSong == selectedSong) && (activeSong == i) {
     wattrset(playlistWindow, COLOR_PAIR(3))
@@ -25,19 +24,8 @@ func drawPlaylistLine(song: Song, i: Int){
     wattrset(playlistWindow, COLOR_PAIR(2))
   }
  
-  // orezat nazev nebo doplnit mezerami na celou sirku okna
-  var line = songTitle
-  var diff = maxColumns - pathSize - durationSize - 1
-  if diff <= 0 {
-    diff *= -1
-    let index1 = line.startIndex.advancedBy(diff)
-    line = line.substringFromIndex(index1)
-  } else {
-    for _ in 0...diff{
-      line += " "
-    }
-  }
-  
+  /* normalize names to fit the actual size of line */
+  var line = trimTextToFitLine(songTitle, maxLength: maxColumns - durationSize)
   line += songDuration
   
   waddstr(playlistWindow, line)
@@ -49,6 +37,14 @@ func drawPlaylistLine(song: Song, i: Int){
 
 func drawPlaylistWindow(height: Int32, width: Int32){
   wclear(playlistWindow)
+ 
+  /* crash ahead while trying to draw empty playlist */
+  if limitedSongs.count <= 0 {
+    drawBorders(playlistWindow, y: height, x: width)
+    wrefresh(playlistWindow)
+    return
+  }
+  
   var lines: Int32 = 0
   
   if selectedSong < 0 { selectedSong = 0 }
@@ -78,11 +74,10 @@ func drawPlaylistWindow(height: Int32, width: Int32){
     drawPlaylistLine(limitedSongs[i], i: i)
     
     lines += 1
-    if lines >= (y - 2) {
+    if lines >= (y - songWindowSize - consoleWindowSize - 1) {
       break
     }
   }
-  refresh()
   drawBorders(playlistWindow, y: height, x: width)
   wrefresh(playlistWindow)
 }

@@ -9,9 +9,8 @@
 import Foundation
 
 func drawConsoleWindow(height: Int32, width: Int32){
-  refresh()
-  wclear(searchWindow)
-  drawBorders(searchWindow, y: height, x: width)
+  wclear(consoleWindow)
+  drawBorders(consoleWindow, y: height, x: width)
   
   var line = consoleContent
   
@@ -22,7 +21,7 @@ func drawConsoleWindow(height: Int32, width: Int32){
     line = line.substringFromIndex(index1)
   }
   
-  wmove(searchWindow, 1, 3)
-  waddstr(searchWindow, line)
-  wrefresh(searchWindow)
+  wmove(consoleWindow, 1, 3)
+  waddstr(consoleWindow, line)
+  wrefresh(consoleWindow)
 }

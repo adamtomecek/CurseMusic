@@ -12,7 +12,8 @@
 		C23DB06D1CE5DF0200322A45 /* libncurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C23DB06C1CE5DF0200322A45 /* libncurses.dylib */; };
 		C26584FD1CF8B23A00261338 /* PlaylistWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */; };
 		C26584FF1CF8B37200261338 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26584FE1CF8B37200261338 /* Utils.swift */; };
-		C26585011CF8B6C200261338 /* SearchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26585001CF8B6C200261338 /* SearchWindow.swift */; };
+		C26585011CF8B6C200261338 /* ConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26585001CF8B6C200261338 /* ConsoleWindow.swift */; };
+		C2C444481D3BD6790030DBA0 /* SongWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C444471D3BD6790030DBA0 /* SongWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,7 +37,8 @@
 		C23DB06C1CE5DF0200322A45 /* libncurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libncurses.dylib; path = /usr/local/Cellar/ncurses/6.0_1/lib/libncurses.dylib; sourceTree = "<absolute>"; };
 		C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistWindow.swift; sourceTree = "<group>"; };
 		C26584FE1CF8B37200261338 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		C26585001CF8B6C200261338 /* SearchWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWindow.swift; sourceTree = "<group>"; };
+		C26585001CF8B6C200261338 /* ConsoleWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleWindow.swift; sourceTree = "<group>"; };
+		C2C444471D3BD6790030DBA0 /* SongWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongWindow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +76,8 @@
 				C220A9C31CE35D1F00510EEB /* main.swift */,
 				C26584FC1CF8B23A00261338 /* PlaylistWindow.swift */,
 				C26584FE1CF8B37200261338 /* Utils.swift */,
-				C26585001CF8B6C200261338 /* SearchWindow.swift */,
+				C26585001CF8B6C200261338 /* ConsoleWindow.swift */,
+				C2C444471D3BD6790030DBA0 /* SongWindow.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -146,11 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2C444481D3BD6790030DBA0 /* SongWindow.swift in Sources */,
 				C220A9C41CE35D1F00510EEB /* main.swift in Sources */,
 				C20CFF141CFF737B006740A0 /* FuzzySearch.swift in Sources */,
 				C26584FD1CF8B23A00261338 /* PlaylistWindow.swift in Sources */,
 				C26584FF1CF8B37200261338 /* Utils.swift in Sources */,
-				C26585011CF8B6C200261338 /* SearchWindow.swift in Sources */,
+				C26585011CF8B6C200261338 /* ConsoleWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
