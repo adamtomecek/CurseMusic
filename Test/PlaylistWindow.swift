@@ -70,8 +70,10 @@ func drawPlaylistWindow(height: Int32, width: Int32){
   
   for i in minIndex...maxIndex {
     wmove(playlistWindow, lines + 1, 3)
-    
-    drawPlaylistLine(limitedSongs[i], i: i)
+  
+    let song = songs[limitedSongs[i]]
+
+    drawPlaylistLine(song, i: i)
     
     lines += 1
     if lines >= (y - songWindowSize - consoleWindowSize - 1) {

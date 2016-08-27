@@ -25,7 +25,7 @@ func drawSongWindow(height: Int32, width: Int32){
     let currentTime: Float64? = Float64(player!.currentTime)
     let currentTimeStr: String? = timeToString(currentTime!)
     let progressSize = maxColumns / 2;
-    let progressFull = Int(currentTime! / limitedSongs[activeSong].duration * Float64(progressSize));
+    let progressFull = Int(currentTime! / songs[activeSong].duration * Float64(progressSize));
     let progressEmpty = progressSize - progressFull
     
     progressBar += currentTimeStr! // song progress time
@@ -37,7 +37,7 @@ func drawSongWindow(height: Int32, width: Int32){
       progressBar += "░" // fill the rest of progress bar
     }
     progressBar += "] " // progress bar end
-    progressBar += timeToString(limitedSongs[activeSong].duration); // total song time
+    progressBar += timeToString(songs[activeSong].duration); // total song time
   }
   
   wmove(songWindow, 1, 3)

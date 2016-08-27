@@ -12,8 +12,7 @@ import AVFoundation
 
 var player: AVAudioPlayer?
 var songs: [Song] = readFolder("/Users/adamtomecek/Music/MP3/Parkway Drive")
-var limitedSongs: [Song] = []
-limitedSongs = songs
+var limitedSongs = clearLimitedSongs()
 
 var playingSong: Song
 //sleep(5)
@@ -74,7 +73,7 @@ dispatch_async(dispatch_get_global_queue(priority, 0)) {
         consoleContent = String(consoleContent.characters.dropLast())
       case 13:  // enter
         if consoleContent == "" {
-          limitedSongs = songs
+          limitedSongs = clearLimitedSongs()
         }
         
         selectedSong = 0

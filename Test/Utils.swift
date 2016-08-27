@@ -65,17 +65,25 @@ func readFolder(path: String) -> [Song]{
   return songs
 }
 
-func searchSongs() -> [Song] {
-  var searchSongs: [Song] = []
+func clearLimitedSongs() -> [Int] {
+  var searchSongs: [Int] = []
+  for (index, _) in songs.enumerate() {
+    searchSongs.append(index)
+  }
+  return searchSongs
+}
+
+func searchSongs() -> [Int] {
+  var searchSongs: [Int] = []
  
   /* seach string is empty, return all songs */
   if consoleContent == "" {
-    return songs
+    return clearLimitedSongs()
   }
   
-  for song in songs {
+  for (index, song) in songs.enumerate() {
     if FuzzySearch.search(originalString: song.fullName, stringToSearch: consoleContent){
-      searchSongs.append(song)
+      searchSongs.append(index)
     }
   }
   
@@ -168,10 +176,11 @@ func readInput(char: Int32){
       }
     case Int32(UnicodeScalar("/").value):
       consoleContent = ""
+      consoleChanged = true
       readConsole = true
     case Int32(12): // ^l -> clear search
       consoleContent = ""
-      limitedSongs = songs
+      limitedSongs = clearLimitedSongs()
       songsCount = songs.count
       playlistChanged = true
       consoleChanged = true
@@ -180,9 +189,9 @@ func readInput(char: Int32){
       playlistChanged = true
     case 13: // enter
       if limitedSongs.count > 0 {
-        activeSong = selectedSong
-        playingSong = limitedSongs[activeSong]
-        playSound(limitedSongs[activeSong].path)
+        activeSong = limitedSongs[selectedSong]
+        playingSong = songs[activeSong]
+        playSound(songs[activeSong].path)
       }
       playlistChanged = true
       songChanged = true
