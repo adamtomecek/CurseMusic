@@ -236,9 +236,6 @@ func readInput(char: Int32){
       songsCount = songs.count
       playlistChanged = true
       consoleChanged = true
-    case Int32(UnicodeScalar("r").value): // random
-      // activeSong = random(songsCount)
-      playlistChanged = true
     case 13: // enter
       if limitedSongs.count > 0 {
         activeSong = limitedSongs[selectedSong]

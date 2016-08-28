@@ -10,12 +10,21 @@ import Foundation
 import Darwin.ncurses
 import AVFoundation
 
+//sleep(5)
+
 var player: AVAudioPlayer?
-var songs: [Song] = readFolder("/Users/adamtomecek/Music/MP3/Parkway Drive")
+
+// user current path is no argument is passed
+var path = NSFileManager.defaultManager().currentDirectoryPath
+if Process.argc > 1 {
+  path = Process.arguments[1]
+}
+
+var songs: [Song] = readFolder(path)
 var limitedSongs = clearLimitedSongs()
 
 var playingSong: Song
-// sleep(5)
+
 
 setlocale(LC_ALL,"")
 initscr()                   // Init window. Must be first
