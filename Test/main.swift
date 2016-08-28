@@ -15,7 +15,7 @@ var songs: [Song] = readFolder("/Users/adamtomecek/Music/MP3/Parkway Drive")
 var limitedSongs = clearLimitedSongs()
 
 var playingSong: Song
-//sleep(5)
+// sleep(5)
 
 setlocale(LC_ALL,"")
 initscr()                   // Init window. Must be first
@@ -30,13 +30,15 @@ start_color()
 init_pair(1, Int16(COLOR_GREEN), Int16(COLOR_BLACK))
 init_pair(2, Int16(COLOR_BLACK), Int16(COLOR_WHITE))
 init_pair(3, Int16(COLOR_GREEN), Int16(COLOR_WHITE))
+init_pair(4, Int16(COLOR_WHITE), Int16(COLOR_GREEN))
 
-let songWindowSize: Int32 = 5
+
+let songWindowSize: Int32 = 6
 let consoleWindowSize: Int32 = 3
 
 var x = getmaxx(stdscr)
 var y = getmaxy(stdscr)
-var activeSong: Int = 0
+var activeSong: Int = -1
 var selectedSong: Int = 0
 let songWindow = newwin(songWindowSize, x, 0, 0)
 let playlistWindow = newwin(y - songWindowSize - consoleWindowSize, x, songWindowSize, 0)
@@ -48,13 +50,14 @@ var maxColumns: Int = Int(x - 6)
 var readConsole = false
 var consoleContent: String = ""
 
-// Wait for user input
-// Exit on 'q'
 var playlistChanged: Bool = true
 var consoleChanged: Bool = true
 var songChanged: Bool = true
 var refreshWindows: Bool = true
 var lastTime = CFAbsoluteTimeGetCurrent()
+
+var repeatPlay = false
+var randomPlay = false
 
 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
 dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -100,6 +103,15 @@ while true {
   let newY = getmaxy(stdscr)
   var deltaTime = Float(CFAbsoluteTimeGetCurrent() - lastTime)
   usleep(100)
+ 
+ 
+  if player != nil { // think about better way of handling song switches
+    let duration = player!.duration
+    let currentTime = player!.currentTime
+    if (player!.currentTime + 0.005) > player!.duration {
+      playNextSong()
+    }
+  }
   
   if deltaTime > 0.5 {
     lastTime = CFAbsoluteTimeGetCurrent()

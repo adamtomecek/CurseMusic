@@ -104,6 +104,43 @@ func playSound(path: String) {
   }
 }
 
+func playSong() {
+  playingSong = songs[activeSong]
+  playSound(songs[activeSong].path)
+}
+
+func playNextSong(){
+  if limitedSongs.count == 0 { return }
+  
+  if limitedSongs.count == 0 {
+    activeSong = -1
+    player?.stop()
+    player = nil
+    return
+  }
+
+  if randomPlay {
+    activeSong = Int(arc4random_uniform(UInt32(limitedSongs.count))) - 1
+  } else {
+    activeSong += 1
+  }
+  
+  if limitedSongs.count <= activeSong {
+    if repeatPlay {
+      activeSong = 0
+      playSong()
+      return
+    } else {
+      player?.stop()
+      player = nil
+      activeSong = -1
+      return
+    }
+  }
+  
+  playSong()
+}
+
 func drawBorders(window: COpaquePointer, y: Int32, x: Int32){
   // spodni a horni linka
   mvwhline(window, 0, 1, UInt32("-"), x - 2)
@@ -168,12 +205,27 @@ func readInput(char: Int32){
     case Int32(UnicodeScalar("k").value):
       selectedSong -= 1
       playlistChanged = true
+    case Int32(UnicodeScalar("s").value):
+      randomPlay = !randomPlay
+      songChanged = true
+    case Int32(UnicodeScalar("r").value):
+      repeatPlay = !repeatPlay
+      songChanged = true
     case Int32(UnicodeScalar("p").value):
+      if player == nil{
+        playNextSong()
+        return
+      }
+      
       if player?.playing == true {
         player?.pause()
       }else {
         player?.play()
       }
+    case Int32(UnicodeScalar("n").value):
+      playNextSong()
+      playlistChanged = true
+      songChanged = true
     case Int32(UnicodeScalar("/").value):
       consoleContent = ""
       consoleChanged = true
@@ -190,8 +242,7 @@ func readInput(char: Int32){
     case 13: // enter
       if limitedSongs.count > 0 {
         activeSong = limitedSongs[selectedSong]
-        playingSong = songs[activeSong]
-        playSound(songs[activeSong].path)
+        playSong()
       }
       playlistChanged = true
       songChanged = true
