@@ -1,5 +1,7 @@
 Simple Swift NCurses player made for fun. Code is real mess written to just work, not to look nice :)
 
+![Example](images/example-small.gif)
+
 ## Usage
 `CurseMusic [path]`
 
