@@ -13,7 +13,7 @@ After start, CurseMusic recursively searches actual path or path entered as firs
 - `k` - navigate up
 - `Enter` - play selected song
 - `p` - play / pause
-- `s` - shiffle on / off
+- `s` - shuffle on / off
 - `r` - repeat on / off
 - `n` - next song
 - `/` - starts interactive fuzzy search, `Enter` to finish

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CNCurses",
+        "repositoryURL": "https://github.com/Bouke/CNCurses",
+        "state": {
+          "branch": null,
+          "revision": "35bcc93dd9468c50beaf18e7e486d40bd31382c4",
+          "version": "3.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
