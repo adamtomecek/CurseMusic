@@ -1,20 +1,40 @@
 import Foundation
-// import Darwin.ncurses
 import AVFoundation
 import CNCurses
 
 var player: AVAudioPlayer?
 
-// user current path is no argument is passed
-var path = FileManager.default.currentDirectoryPath
-if CommandLine.argc > 1 {
-  path = CommandLine.arguments[1]
-}
-
-var songs: [Song] = readFolder(path)
-var limitedSongs = clearLimitedSongs()
 
 var playingSong: Song
+
+var readConsole: Bool = false
+var consoleContent: String = ""
+
+var playlistChanged: Bool = true
+var consoleChanged: Bool = true
+var songChanged: Bool = true
+
+var refreshWindows: Bool = true
+var lastTime = CFAbsoluteTimeGetCurrent()
+var repeatPlay: Bool = false
+var randomPlay: Bool = false
+
+var activeSong: Int = -1
+var selectedSong: Int = 0
+
+var songs: [Song] = []
+var limitedSongs: [Int] = []
+var songsCount = 0
+
+
+// user current path is no argument is passed
+if CommandLine.argc > 1 {
+  readFolder(CommandLine.arguments[1])
+} else {
+  loadState()
+}
+limitedSongs = clearLimitedSongs()
+songsCount = limitedSongs.count
 
 setlocale(LC_ALL,"")
 initscr()                   // Init window. Must be first
@@ -34,11 +54,6 @@ init_pair(4, Int16(COLOR_WHITE), Int16(COLOR_GREEN))
 let songWindowSize: Int32 = 6
 let consoleWindowSize: Int32 = 3
 
-var activeSong: Int = -1
-var selectedSong: Int = 0
-var songsCount = limitedSongs.count
-
-
 var x = getmaxx(stdscr)
 var y = getmaxy(stdscr)
 let songWindow = newwin(songWindowSize, x, 0, 0)
@@ -46,18 +61,6 @@ let playlistWindow = newwin(y - songWindowSize - consoleWindowSize, x, songWindo
 let consoleWindow = newwin(consoleWindowSize, x, y - consoleWindowSize, 0)
 var maxLines: Int = Int(y - 2 - 3)
 var maxColumns: Int = Int(x - 6)
-
-var readConsole = false
-var consoleContent: String = ""
-
-var playlistChanged: Bool = true
-var consoleChanged: Bool = true
-var songChanged: Bool = true
-var refreshWindows: Bool = true
-var lastTime = CFAbsoluteTimeGetCurrent()
-
-var repeatPlay = false
-var randomPlay = false
 
 DispatchQueue.global(qos: .default).async {
   while true {

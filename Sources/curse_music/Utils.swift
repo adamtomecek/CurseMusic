@@ -1,21 +1,81 @@
 import Foundation
 import AVFoundation
 
-struct Song {
+struct Song: Codable {
   var path: String
   var artist: String
   var album: String
   var title: String
-  var duration: Float64
+  var duration: Double
   var fullName: String
 }
 
+struct PlayerData: Codable {
+  var songs: [Song]
+  var limitedSongs: [Int]
+  var playingSong: Song
+  var repeatPlay: Bool
+  var randomPlay: Bool
+  var activeSong: Int
+  var selectedSong: Int
+}
+
+func saveState () {
+  var data = PlayerData(
+    songs: songs,
+    limitedSongs: limitedSongs,
+    playingSong: playingSong,
+    repeatPlay: repeatPlay,
+    randomPlay: randomPlay,
+    activeSong: activeSong,
+    selectedSong: selectedSong
+  )
+
+  let jsonEncoder = JSONEncoder()
+  let jsonData = try! jsonEncoder.encode(data)
+  let jsonString = String(data: jsonData, encoding: .utf8)
+
+  if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+    let fileURL = URL(fileURLWithPath: "\(NSHomeDirectory())/.curse_music")
+
+    do {
+        try jsonString?.write(to: fileURL, atomically: false, encoding: .utf8)
+    }
+    catch {
+      print("error writing configuration")
+      print("Error info: \(error)")
+    }
+  }
+}
+
+func loadState() {
+  if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+    let fileURL = URL(fileURLWithPath: "\(NSHomeDirectory())/.curse_music")
+
+    do {
+        let jsonData = try Data(contentsOf: fileURL, options: .alwaysMapped)
+        let jsonDecoder = JSONDecoder()
+        let playerData = try jsonDecoder.decode(PlayerData.self, from: jsonData)
+        songs = playerData.songs
+        repeatPlay = playerData.repeatPlay
+        randomPlay = playerData.randomPlay
+        limitedSongs = playerData.limitedSongs
+        playingSong = playerData.playingSong
+        activeSong = playerData.activeSong
+        selectedSong = playerData.selectedSong
+    }
+    catch {
+      print("error writing configuration")
+      print("Error info: \(error)")
+    }
+  }
+
+}
+
 // load all mp3 files for path
-func readFolder(_ path: String) -> [Song]{
+func readFolder(_ path: String) {
   let fm = FileManager.default
   let enumerator:FileManager.DirectoryEnumerator? = fm.enumerator(atPath: path)
-
-  var songs: [Song] = []
 
   while let item = enumerator?.nextObject() as? String {
     let ext = (item as NSString).pathExtension
@@ -38,9 +98,9 @@ func readFolder(_ path: String) -> [Song]{
 
           if (commonKey == AVMetadataKey.commonKeyTitle){
             title = tag.stringValue!
-          } else if (commonKey == AVMetadataKey.commonKeyTitle){
+          } else if (commonKey == AVMetadataKey.commonKeyArtist){
             artist = tag.stringValue!
-          } else if (commonKey == AVMetadataKey.commonKeyTitle){
+          } else if (commonKey == AVMetadataKey.commonKeyAlbumName){
             album = tag.stringValue!
           }
         }
@@ -58,8 +118,6 @@ func readFolder(_ path: String) -> [Song]{
       )
     }
   }
-
-  return songs
 }
 
 func clearLimitedSongs() -> [Int] {
@@ -194,6 +252,7 @@ func centerText(_ text:String, numlines:Int32, numcols:Int32) {
 func readInput(_ char: Int32){
   switch char {
     case Int32(UnicodeScalar("q").value):
+        saveState()
         endwin()
         exit(EX_OK)
     case Int32(UnicodeScalar("j").value):
