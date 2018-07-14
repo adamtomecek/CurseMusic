@@ -1,11 +1,11 @@
-Simple Swift NCurses player made for fun. Code is real mess written to just work, not to look nice :)
+Simple Swift NCurses player made for fun.
 
 ![Example](images/example-small.gif)
 
 ## Usage
-`CurseMusic [path]`
+`curse_music [path]`
 
-After start, CurseMusic recursively searches actual path or path entered as first ARGV. **Be carefull not to use too large folders!**
+CurseMusic recursively searches path for songs is provided. If not, CurseMusic loads last state stored in `~/.curse_music`
 
 ## Controls
 - `q` - quit
